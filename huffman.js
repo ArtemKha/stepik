@@ -56,17 +56,21 @@ function toHuffman(array) {
 function toHuffman2(array) {
   const n = array.length - 1
   const tree = array.map(leaf => {
-    return Leaf(counter(), leaf[0])
+    return Leaf(leaf[1], counter(), leaf[0])
   })
+  const temp = [...tree]
 
   for (let k = n + 1; k <= (2 * n); k++) {
-    const one = extractMIN(array)[0]
-    const two = extractMIN(array)[0]
-    array.push([0, one[1] + two[1]])
-    tree[k] = Node(counter(), one, two)
+    const one = extractMIN(temp)
+    const two = extractMIN(temp)
+    console.log(one, two.value)
+    const value = one.value + two.value;
+    const node = Node(value, counter(), one, two)
+    temp.push(node)
+    tree[k] = node
   }
 
-  return tree
+  // return tree
 }
 
 function toHuffman3(array) {
@@ -92,7 +96,8 @@ function extractMIN(arr) {
 }
 
 function sortByFrequency(a, b) {
-  return a[1] - b[1]
+  console.log(a.value)
+  return a.value - b.value
 }
 
 const sorted = sort(count(data))
