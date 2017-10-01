@@ -21,8 +21,12 @@ function sort(obj) {
   for (let ltr in obj) {
     sortable.push([ltr, obj[ltr]])
   }
+
+  const tree = sortable.sort(sortByFrequency).map(leaf => {
+    return Leaf(leaf[1], counter(), leaf[0])
+  })
   
-  return sortable.sort(sortByFrequency)
+  return tree
 }
 
 function Node(value, link, left, right) {
@@ -53,24 +57,20 @@ function toHuffman(array) {
   return tree
 }
 
-function toHuffman2(array) {
-  const n = array.length - 1
-  const tree = array.map(leaf => {
-    return Leaf(leaf[1], counter(), leaf[0])
-  })
+function toHuffman2(tree) {
+  const n = tree.length - 1
   const temp = [...tree]
 
   for (let k = n + 1; k <= (2 * n); k++) {
-    const one = extractMIN(temp)
-    const two = extractMIN(temp)
-    console.log(one, two.value)
+    const one = extractMIN(temp)[0]
+    const two = extractMIN(temp)[0]
     const value = one.value + two.value;
-    const node = Node(value, counter(), one, two)
+    const node = Node(value, counter(), one.link, two.link)
     temp.push(node)
     tree[k] = node
   }
 
-  // return tree
+  return tree
 }
 
 function toHuffman3(array) {
