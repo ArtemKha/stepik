@@ -1,6 +1,5 @@
 const data = 'beep boop beer!'
-const data1 = 'abasabsasascc'
-const data2 = 'ass'
+const data2 = 'abacabad'
 
 function count(string) {
   const str = string.split('')
@@ -73,34 +72,58 @@ function toHuffman(tree) {
   const root = tree[tree.length - 1]
   
   const code = {}
+  let pat = ''
 
-  function toCode(node, acc) {
-    
-    if (node.type !== 'Leaf') {
-      const left = node.leaves[0]
-      const right = node.leaves[1]
-      toCode(tree[left], acc += 0)
-      toCode(tree[right], acc += 1)
-    } 
-
-    console.log(node)
-    if (node.char) {
-      code[node.char] = acc
-      console.log(acc)
-      acc = acc. slice(0, -1)
-      return 
+  function assign(node, pat) {
+    if (node.type === 'Leaf') {
+      code[node.char] = pat
+    } else {
+      assign(tree[node.leaves[0]], pat+'0')
+      assign(tree[node.leaves[1]], pat+'1')
     }
   }
   
-  toCode(root, '')
+  assign(root, pat)
   return code
 }
 
+function toCode(table, string) {
+  let code = ''
+  string.split('').forEach( char => {
+    code += table[char]
+  })
+  return code
+}
 
-const leaves = toLeaves(count(data))
-const tree = toTree(leaves)
+const params = 'По-моему знаний полученных в лекции недостаточно для написания кода'
 
-console.log(toHuffman(tree))
+const leaves = toLeaves(count(params))
+const char = leaves.length
+const huffman = toHuffman(toTree(leaves))
+const code = toCode(huffman, params)
+
+if (params.length < 2) {
+  console.log(1, 1)
+  console.log(params.slice(0, 1) + ': ' + 0)
+  console.log(0)
+} else if ( char < 2 ) {
+  console.log(1, params.length)
+  console.log(params.slice(0, 1) + ': ' + 0)
+  console.log(params.split('').map( item => {
+    return '0'
+  }).join(''))
+} else {
+  console.log(char, code.length)
+  for (let char in huffman) console.log(char + ': ' + huffman[char])
+  console.log(code)
+}
+
+// let str = ''
+// for (let char in obj) {
+//   str = + char + ': ' + obj[char]
+//   str = + '/n'
+// }
+// return str
 // console.log(toTree(leaves))
 // console.log(toTree(toLeaves(count(data))))
 
