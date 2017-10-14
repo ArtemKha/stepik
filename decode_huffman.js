@@ -5,7 +5,6 @@ const input = params.split('\n').slice(0, -1)
 const last = input.length - 1
 let string = input[last]
 let code = {};
-
 for (let i = 1; i < last; i++) {
   const pair = input[i].split(': ')
   code[pair[0]] = pair[1]
@@ -20,11 +19,9 @@ function cut(string) {
       string = string.slice(code[char].length);
     }
   }
-
-  console.log(string)
-  console.log(decoded)
   if (string.length > 0) cut(string)
 }
 
 cut(string)
 console.log(decoded)
+

@@ -1,6 +1,3 @@
-const data = 'beep boop beer!'
-const data2 = 'abacabad'
-
 function count(string) {
   const str = string.split('')
   const frequency = {}
@@ -95,7 +92,7 @@ function toCode(table, string) {
   return code
 }
 
-const params = 'По-моему знаний полученных в лекции недостаточно для написания кода'
+let params = `aaa`
 
 const leaves = toLeaves(count(params))
 const char = leaves.length
@@ -117,16 +114,3 @@ if (params.length < 2) {
   for (let char in huffman) console.log(char + ': ' + huffman[char])
   console.log(code)
 }
-
-// let str = ''
-// for (let char in obj) {
-//   str = + char + ': ' + obj[char]
-//   str = + '/n'
-// }
-// return str
-// console.log(toTree(leaves))
-// console.log(toTree(toLeaves(count(data))))
-
-// for (let k = n + 1; k <= 2 * n - 1; k++) {
-
-// }
