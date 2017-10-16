@@ -39,11 +39,12 @@ class Heap {
       leftChild = 2 * i + 1;
       rightChild = 2 * i + 2;
       largestChild = i;
-      
-      if (leftChild < this.heapSize() && this.list[leftChild] > this.list[largestChild]) {
+      const size = this.heapSize() - 1;
+
+      if (leftChild <= size && this.list[leftChild] > this.list[largestChild]) {
         largestChild = leftChild;
       }
-      if (rightChild < this.heapSize() && this.list[rightChild] > this.list[largestChild]) {
+      if (rightChild <= size && this.list[rightChild] > this.list[largestChild]) {
         largestChild = rightChild;
       }
 
@@ -58,7 +59,7 @@ class Heap {
 
   buildHeap(sourceArray) {
     this.list = sourceArray;
-    for (let i = Math.floor(this.heapSize() / 2); i >= 0; i--) {
+    for (let i = Math.ceil(this.heapSize() / 2); i >= 0; i--) {
       this.heapify(i);
     }
   }
@@ -83,22 +84,37 @@ class Heap {
 }
 
 const heap = new Heap();
-const heapSort = new Heap();
 
 // heap.add(9);
 // heap.add(7);
-heap.buildHeap([4,3,5,6,1,2,7]);
 
-console.log(heap.getMax());
-console.log('heap', heap.list);
-console.log(heap.getMax());
-console.log('heap', heap.list);
-console.log(heap.getMax());
-console.log('heap', heap.list);
-console.log(heap.getMax());
-console.log('heap', heap.list);
-console.log(heap.getMax());
-console.log('heap', heap.list);
-console.log(heap.getMax());
-console.log('heap', heap.list);
-// console.log('heapsort', heapSort.heapSort([4, 3, 5, 6, 1, 2, 7]))
+const functions = ['Insert 29',
+  'Insert 246',
+  'Insert 543',
+  'ExtractMax',
+  'Insert 944',
+  'Insert 930',
+  'ExtractMax',
+  'ExtractMax',
+  'ExtractMax',
+  'Insert 105',
+  'Insert 255',
+  'Insert 364',
+  'Insert 157',
+  'ExtractMax',
+];
+
+
+try {
+  functions.forEach(item => {
+    if (item.startsWith('I')) {
+      const [command, value] = item.split(' ');
+      const int = parseInt(value);
+      heap.add(int);
+    } else if (item.startsWith('E')) {
+      console.log(heap.getMax());
+    }
+  })
+} catch(e) {
+  console.log(e)
+}
